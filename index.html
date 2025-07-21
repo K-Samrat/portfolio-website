@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samrat Karna</title>
+    <title>Samrat Karna - Computer Science Portfolio</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Inter -->
@@ -105,17 +105,122 @@
             border-color: #7f5ad5;
         }
 
-        /* Scroll Reveal Animation Styles */
-        .section-hidden {
-            opacity: 0;
-            transform: translateY(100px); /* Start 100px below its final position for a stronger effect */
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Adjusted transition for smoothness */
+        /* Dark mode input field visibility fix */
+        body.dark input[type="text"],
+        body.dark input[type="email"],
+        body.dark textarea {
+            background-color: #4a5568; /* Darker background for inputs */
+            color: #e2e8f0; /* Light text color for visibility */
+            border-color: #6b46c1; /* Adjust border color for contrast */
+        }
+        body.dark input[type="text"]::placeholder,
+        body.dark input[type="email"]::placeholder,
+        body.dark textarea::placeholder {
+            color: #a0aec0; /* Lighter placeholder text */
         }
 
-        .section-visible {
-            opacity: 1;
-            transform: translateY(0); /* Move to its final position */
+
+        /* Underline Hover Animation for Nav Links and Buttons */
+        .animated-link {
+            position: relative;
+            display: inline-block;
+            overflow: hidden; /* Hide the pseudo-element overflow */
+            padding-bottom: 2px; /* Space for the underline */
         }
+
+        .animated-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%; /* Start from the center */
+            width: 0;
+            height: 2px; /* Underline thickness */
+            background-color: currentColor; /* Inherit text color */
+            transition: width 0.3s ease-out; /* Only animate width */
+            transform: translateX(-50%); /* Keep it centered */
+        }
+
+        .animated-link:hover::before {
+            width: 100%; /* Expand to full width */
+        }
+
+        /* Specific styling adjustments for buttons that are already styled with padding/height */
+        .animated-button {
+            position: relative;
+            overflow: hidden; /* Crucial for containing the pseudo-element */
+            z-index: 1; /* Ensure pseudo-element is behind text */
+            /* The button itself has py-3 (0.75rem padding-top/bottom) */
+        }
+
+        .animated-button::before {
+            content: '';
+            position: absolute;
+            bottom: 0; /* Position at the very bottom of the button */
+            left: 50%;
+            width: 0;
+            height: 3px; /* Slightly thicker for buttons */
+            background-color: rgba(255, 255, 255, 0.8); /* White for contrast on indigo buttons */
+            transition: width 0.3s ease-out;
+            transform: translateX(-50%);
+            z-index: -1; /* Place behind button text */
+        }
+
+        .animated-button:hover::before {
+            width: 100%;
+        }
+
+        /* Adjustments for dark mode buttons */
+        body.dark .animated-button::before {
+            background-color: rgba(255, 255, 255, 0.8); /* Still white for contrast */
+        }
+
+        /* For social media icons, a simple text underline might be better, or a subtle background change */
+        .social-icon-link {
+            position: relative;
+            display: inline-block;
+        }
+        .social-icon-link::before {
+            content: '';
+            position: absolute;
+            bottom: -2px; /* Adjust position */
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: currentColor;
+            transition: width 0.3s ease-out;
+            transform: translateX(-50%);
+        }
+        .social-icon-link:hover::before {
+            width: 100%;
+        }
+
+        /* Styling for animated section headings */
+        .section-heading-animated {
+            position: relative;
+            display: inline-block; /* Allows width to be set and pseudo-element to position correctly */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            padding-bottom: 5px; /* Space for the underline */
+            /* Ensure the heading itself is centered by its parent's text-align: center */
+            /* For h2, it's block by default, so text-align: center on its parent is usually enough. */
+            /* If it's inline-block, then margin: 0 auto; or text-align: center on parent would center the block. */
+        }
+
+        .section-heading-animated::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0; /* Start from left edge */
+            width: 0;
+            height: 3px; /* Underline thickness */
+            background-color: currentColor; /* Inherit text color */
+            transition: width 0.3s ease-out;
+            transform: translateX(0); /* No transform needed as it starts from left */
+        }
+
+        .section-heading-animated:hover::before {
+            width: 100%;
+        }
+
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -124,7 +229,11 @@
     <header class="bg-white shadow-md py-4 fixed w-full z-50 rounded-b-lg">
         <nav class="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
             <div class="flex items-center space-x-4">
-                <a href="#" class="text-2xl font-bold text-indigo-600 rounded-md p-2 hover:bg-indigo-50 transition-colors">SK</a>
+                <!-- Logo Image -->
+                <a href="#" class="rounded-md p-1 hover:bg-indigo-50 transition-colors animated-link">
+                    <!-- Replace with your actual logo URL -->
+                    <img src="img3.jpg" alt="Your Logo" class="h-10 w-10 object-contain">
+                </a>
                 <!-- Dark Mode Toggle Button -->
                 <button id="theme-toggle" class="p-2 rounded-full text-gray-700 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
                     <!-- Moon Icon (Dark Mode) -->
@@ -138,13 +247,13 @@
                 </button>
             </div>
             <div class="hidden md:flex space-x-6">
-                <a href="#home" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50">Home</a>
-                <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50">About</a>
-                <a href="#skills" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50">Skills</a>
-                <a href="#projects" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50">Projects</a>
-                <a href="#experience" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50">Experience</a>
-                <a href="#resume" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50">Resume</a>
-                <a href="#contact" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50">Contact</a>
+                <a href="#home" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50 animated-link">Home</a>
+                <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50 animated-link">About</a>
+                <a href="#skills" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50 animated-link">Skills</a>
+                <a href="#projects" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50 animated-link">Projects</a>
+                <a href="#experience" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50 animated-link">Experience</a>
+                <a href="#resume" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50 animated-link">Resume</a>
+                <a href="#contact" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors p-2 rounded-md hover:bg-indigo-50 animated-link">Contact</a>
             </div>
             <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 p-2 rounded-md">
@@ -175,49 +284,50 @@
         <!-- Hero Section -->
         <section id="home" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-20 md:py-32 flex items-center justify-center min-h-screen-75 rounded-b-3xl shadow-lg">
             <div class="container mx-auto text-center px-4 sm:px-6 lg:px-8">
-                <img src="https://placehold.co/150x150/667EEA/FFFFFF?text=JP" alt="Your Profile Picture" class="rounded-full w-36 h-36 mx-auto mb-6 border-4 border-white shadow-lg object-cover">
+                <img src="img1.jpg" alt="Your Profile Picture" class="rounded-full w-36 h-36 mx-auto mb-6 border-4 border-white shadow-lg object-cover">
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">Hi, I'm <span class="text-yellow-300">Samrat Karna</span></h1>
                 <p class="text-xl sm:text-2xl mb-8 font-light">A passionate Computer Science Engineering Student</p>
-                <a href="#projects" class="bg-white text-indigo-600 hover:bg-indigo-100 py-3 px-8 rounded-full text-lg font-semibold shadow-md transition-all duration-300 transform hover:scale-105">View My Work</a>
+                <a href="#projects" class="bg-white text-indigo-600 hover:bg-indigo-100 py-3 px-8 rounded-full text-lg font-semibold shadow-md transition-all duration-300 transform hover:scale-105 animated-button">View My Work</a>
             </div>
         </section>
 
         <!-- About Me Section -->
-        <section id="about" class="py-16 md:py-24 bg-white rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8 section-hidden">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-12">About Me</h2>
+        <section id="about" class="py-16 md:py-24 bg-white rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-12 section-heading-animated">About Me</h2>
                 <div class="flex flex-col md:flex-row items-center md:space-x-12">
-                    <div class="md:w-1/2 mb-8 md:mb-0">
-                        <img src="https://placehold.co/400x300/667EEA/FFFFFF?text=About+Image" alt="About Me Image" class="rounded-xl shadow-lg w-full h-auto object-cover">
+                    <div class="md:w-1/2 mb-8 md:mb-0 flex justify-center items-center">
+                        <!-- Image height now adapts to the content of the text block -->
+                        <img src="img2.jpg" alt="About Me Image" class="rounded-xl shadow-lg w-full h-auto object-cover max-h-[400px]">
                     </div>
-                    <div class="md:w-1/2 text-lg text-gray-700 leading-relaxed">
+                    <div class="md:w-1/2 text-lg text-gray-700 leading-relaxed flex flex-col justify-center">
                         <p class="mb-4">
-                            Hello! I'm <span class="font-semibold text-indigo-600">Samrat Karna</span>, a dedicated Computer Science Engineering student with a strong passion for software development and problem-solving. I'm currently pursuing my Bachelor's degree at [Your University Name], where I've gained a solid foundation in data structures, algorithms, and various programming paradigms.
+                            Hello! I'm <span class="font-semibold text-indigo-600">Samrat Karna</span>, a dedicated Computer Science Engineering student at Kalinga Institute of Industrial Technology. I'm passionate about software development and problem-solving.
                         </p>
                         <p class="mb-4">
-                            My interests lie in [e.g., web development, machine learning, cybersecurity, mobile app development]. I enjoy building efficient and scalable applications that solve real-world problems. I'm always eager to learn new technologies and improve my skills.
+                            My interests include web development, machine learning, and AI. I enjoy building efficient and scalable applications that solve real-world problems and am always eager to learn new technologies.
                         </p>
                         <p>
-                            Outside of academics, I enjoy [mention hobbies, e.g., playing chess, hiking, reading sci-fi novels]. I believe in continuous learning and actively participate in coding challenges and open-source contributions.
+                            Outside of academics, I enjoy playing cricket, online battleground games, and traveling. I believe in continuous learning and actively participate in coding challenges.
                         </p>
-                        <a href="#contact" class="inline-block mt-8 bg-indigo-600 text-white py-3 px-6 rounded-full text-md font-semibold hover:bg-indigo-700 transition-colors shadow-md">Let's Connect</a>
+                        <a href="#contact" class="inline-block mt-8 bg-indigo-600 text-white py-3 px-6 rounded-full text-md font-semibold hover:bg-indigo-700 transition-colors shadow-md animated-button">Let's Connect</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="py-16 md:py-24 bg-gray-50 rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8 section-hidden">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-12">My Skills</h2>
+        <section id="skills" class="py-16 md:py-24 bg-gray-50 rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-12 section-heading-animated">My Skills</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Skill Category 1 -->
                     <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
                         <h3 class="text-xl font-semibold text-indigo-600 mb-4">Programming Languages</h3>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>C</li>
                             <li>Python</li>
-                            <li>Java</li>
-                            <li>C++</li>
+                            <li>java</li>
                             <li>JavaScript</li>
                             <li>SQL</li>
                         </ul>
@@ -228,7 +338,6 @@
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
                             <li>HTML5, CSS3</li>
                             <li>React.js</li>
-                            <li>Node.js, Express.js</li>
                             <li>Tailwind CSS</li>
                             <li>RESTful APIs</li>
                         </ul>
@@ -237,10 +346,9 @@
                     <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
                         <h3 class="text-xl font-semibold text-indigo-600 mb-4">Databases & Tools</h3>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>MySQL, PostgreSQL</li>
+                            <li>MySQL</li>
                             <li>MongoDB</li>
                             <li>Git, GitHub</li>
-                            <li>Docker</li>
                             <li>VS Code</li>
                         </ul>
                     </div>
@@ -260,58 +368,58 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-16 md:py-24 bg-white rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8 section-hidden">
+        <section id="projects" class="py-16 md:py-24 bg-white rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-12">My Projects</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-12 section-heading-animated">My Projects</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project Card 1 -->
+                    <!-- Project Card 1: Airbnb Clone -->
                     <div class="bg-gray-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                        <img src="https://placehold.co/600x400/A78BFA/FFFFFF?text=Project+1" alt="Project 1 Thumbnail" class="w-full h-48 object-cover">
+                        <img src="img4.jpg" alt="Airbnb Clone Project Thumbnail" class="w-full h-48 object-cover rounded-lg shadow-md">
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold text-indigo-600 mb-2">Project Title One</h3>
-                            <p class="text-gray-700 mb-4 text-sm">A brief description of Project One, highlighting its purpose and key technologies used. This project demonstrates my skills in [tech stack].</p>
+                            <h3 class="text-xl font-semibold text-indigo-600 mb-2">Airbnb Clone (Frontend)</h3>
+                            <p class="text-gray-700 mb-4 text-sm">A responsive frontend design clone of Airbnb, showcasing modern UI/UX principles and component-based architecture. Built to replicate the look and feel of the popular travel platform.</p>
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">React</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Node.js</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">MongoDB</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Tailwind CSS</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">JavaScript</span>
                             </div>
                             <div class="flex space-x-4">
-                                <a href="#" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors">Live Demo</a>
-                                <a href="#" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors">GitHub Repo</a>
+                                <a href="https://prj1sam.netlify.app/" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors animated-link">Live Demo</a>
+                                <a href="https://github.com/K-Samrat/air_bnb.git" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors animated-link">GitHub Repo</a>
                             </div>
                         </div>
                     </div>
-                    <!-- Project Card 2 -->
+                    <!-- Project Card 2: Sonata Watch Clone -->
                     <div class="bg-gray-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                        <img src="https://placehold.co/600x400/818CF8/FFFFFF?text=Project+2" alt="Project 2 Thumbnail" class="w-full h-48 object-cover">
+                        <img src="img5.jpg" alt="Sonata Watch Clone Project Thumbnail" class="w-full h-48 object-cover rounded-lg shadow-md">
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold text-indigo-600 mb-2">Project Title Two</h3>
-                            <p class="text-gray-700 mb-4 text-sm">A brief description of Project Two, highlighting its purpose and key technologies used. This project demonstrates my skills in [tech stack].</p>
+                            <h3 class="text-xl font-semibold text-indigo-600 mb-2">Sonata Watch Clone (Frontend)</h3>
+                            <p class="text-gray-700 mb-4 text-sm">A frontend clone of the Sonata Watch website, demonstrating responsive web design, interactive elements, and a clean user interface. Focuses on showcasing product listings and details.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">HTML</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">CSS</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">JavaScript</span>
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="https://incomparable-hotteok-c744f1.netlify.app/" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors animated-link">Live Demo</a>
+                                <a href="https://github.com/K-Samrat/sonata.git" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors animated-link">GitHub Repo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project Card 3: COVID-19 CT Scan Classification -->
+                    <div class="bg-gray-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <img src="img6.jpg" alt="COVID-19 CT Scan Classification Project Thumbnail" class="w-full h-48 object-cover rounded-lg shadow-md">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-indigo-600 mb-2">COVID-19 CT Scan Classification</h3>
+                            <p class="text-gray-700 mb-4 text-sm">A machine learning project focused on classifying COVID-19 from CT scan images using a deep learning model. Achieved strong accuracy with the ResNet50 architecture for robust image analysis.</p>
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Flask</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">PostgreSQL</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TensorFlow/Keras</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">NumPy</span>
                             </div>
                             <div class="flex space-x-4">
-                                <a href="#" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors">Live Demo</a>
-                                <a href="#" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors">GitHub Repo</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Project Card 3 -->
-                    <div class="bg-gray-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                        <img src="https://placehold.co/600x400/6366F1/FFFFFF?text=Project+3" alt="Project 3 Thumbnail" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-indigo-600 mb-2">Project Title Three</h3>
-                            <p class="text-gray-700 mb-4 text-sm">A brief description of Project Three, highlighting its purpose and key technologies used. This project demonstrates my skills in [tech stack].</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Java</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Spring Boot</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">MySQL</span>
-                            </div>
-                            <div class="flex space-x-4">
-                                <a href="#" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors">Live Demo</a>
-                                <a href="#" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors">GitHub Repo</a>
+                                <!-- No Live Demo for ML projects typically, only GitHub -->
+                                <a href="https://github.com/K-Samrat/covid19-ct-scan-classification.git" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors animated-link">GitHub Repo</a>
                             </div>
                         </div>
                     </div>
@@ -320,31 +428,30 @@
         </section>
 
         <!-- Experience & Education Section -->
-        <section id="experience" class="py-16 md:py-24 bg-gray-50 rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8 section-hidden">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-12">Experience & Education</h2>
+        <section id="experience" class="py-16 md:py-24 bg-gray-50 rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-12 section-heading-animated">Experience & Education</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <!-- Education Section -->
                     <div>
-                        <h3 class="text-2xl font-bold text-indigo-600 mb-6 border-b-2 border-indigo-200 pb-2">Education</h3>
+                        <h3 class="text-2xl font-semibold text-indigo-600 mb-6 border-b-2 border-indigo-200 pb-2">Education</h3>
                         <div class="space-y-8">
-                            <!-- Education Item 1 -->
+                            <!-- Education Item 1: Bachelor's Degree -->
                             <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
                                 <h4 class="text-xl font-semibold text-gray-800">Bachelor of Technology in Computer Science Engineering</h4>
-                                <p class="text-indigo-600 font-medium">Your University Name</p>
-                                <p class="text-gray-600 text-sm">Expected Graduation: May 20XX</p>
+                                <p class="text-indigo-600 font-medium">Kalinga Institute of Industrial Technology</p>
+                                <p class="text-gray-600 text-sm">Expected Graduation: June 2026</p>
                                 <ul class="list-disc list-inside text-gray-700 mt-3 text-sm">
                                     <li>Relevant Coursework: Data Structures & Algorithms, Operating Systems, Database Management Systems, Object-Oriented Programming, Web Technologies.</li>
-                                    <li>GPA: X.X/4.0</li>
                                 </ul>
                             </div>
-                            <!-- Education Item 2 (Optional) -->
+                            <!-- Education Item 2: High School -->
                             <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <h4 class="text-xl font-semibold text-gray-800">High School Diploma</h4>
-                                <p class="text-indigo-600 font-medium">Your High School Name</p>
-                                <p class="text-gray-600 text-sm">Graduation: May 20XX</p>
+                                <h4 class="text-xl font-semibold text-gray-800">High School</h4>
+                                <p class="text-indigo-600 font-medium">Moonlight Secondary School</p>
+                                <p class="text-gray-600 text-sm">Passed Out: May 2020</p>
                                 <ul class="list-disc list-inside text-gray-700 mt-3 text-sm">
-                                    <li>Focused on Science and Mathematics.</li>
+                                    <li>Focused on Physics, Chemistry, and Mathematics.</li>
                                 </ul>
                             </div>
                         </div>
@@ -352,28 +459,46 @@
 
                     <!-- Experience Section -->
                     <div>
-                        <h3 class="text-2xl font-bold text-indigo-600 mb-6 border-b-2 border-indigo-200 pb-2">Experience</h3>
+                        <h3 class="text-2xl font-semibold text-indigo-600 mb-6 border-b-2 border-indigo-200 pb-2">Experience</h3>
                         <div class="space-y-8">
-                            <!-- Experience Item 1 -->
+                            <!-- Experience Item 1: Minor Project -->
                             <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <h4 class="text-xl font-semibold text-gray-800">Software Development Intern</h4>
-                                <p class="text-indigo-600 font-medium">Company Name</p>
-                                <p class="text-gray-600 text-sm">May 20XX - August 20XX</p>
+                                <h4 class="text-xl font-semibold text-gray-800">Mini Project Lead: COVID-19 CT Scan Classification</h4>
+                                <p class="text-indigo-600 font-medium">Self-directed Project</p>
+                                <p class="text-gray-600 text-sm">March 2025 - June 2025</p>
                                 <ul class="list-disc list-inside text-gray-700 mt-3 text-sm">
-                                    <li>Developed and maintained features for [specific project/product] using [technologies].</li>
-                                    <li>Collaborated with a team of [number] engineers on [specific tasks].</li>
-                                    <li>Improved [specific metric, e.g., performance by X%] by [action taken].</li>
+                                    <li>Led a team of 6 members (including myself) in developing a machine learning model for COVID-19 CT scan classification.</li>
+                                    <li>Successfully built and evaluated a ResNet50 model, demonstrating strong accuracy in image analysis.</li>
                                 </ul>
                             </div>
-                            <!-- Experience Item 2 (Optional) -->
+                            <!-- Experience Item 2: AI-ML Virtual Internship -->
                             <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <h4 class="text-xl font-semibold text-gray-800">Teaching Assistant - Data Structures</h4>
-                                <p class="text-indigo-600 font-medium">Your University Name, Department of CS</p>
-                                <p class="text-gray-600 text-sm">September 20XX - December 20XX</p>
+                                <h4 class="text-xl font-semibold text-gray-800">AI-ML Virtual Internship</h4>
+                                <p class="text-indigo-600 font-medium">AWS Academy</p>
+                                <p class="text-gray-600 text-sm">Jan 2025 - March 2025</p>
                                 <ul class="list-disc list-inside text-gray-700 mt-3 text-sm">
-                                    <li>Assisted students with complex data structure concepts and assignments.</li>
-                                    <li>Held weekly office hours and graded homework/projects.</li>
+                                    <li>Gained extensive knowledge and practical skills in various Artificial Intelligence and Machine Learning concepts.</li>
+                                    <li>Explored different algorithms, frameworks, and tools used in real-world AI/ML applications.</li>
                                 </ul>
+                                <a href="https://drive.google.com/file/d/1oQoB9zGNJfcfweGiSFDYrUQtgkpJFir4/view" target="_blank" rel="noopener noreferrer"
+                                   class="inline-block mt-4 bg-gray-200 text-indigo-700 py-2 px-4 rounded-full text-sm font-semibold hover:bg-gray-300 transition-colors animated-link">
+                                    View Certificate
+                                </a>
+                            </div>
+                            <!-- Experience Item 3: All India Web Dev Hackathon -->
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                                <h4 class="text-xl font-semibold text-gray-800">All India Web Dev Hackathon Participant</h4>
+                                <p class="text-indigo-600 font-medium">National Level Competition</p>
+                                <p class="text-gray-600 text-sm">September 2024</p>
+                                <ul class="list-disc list-inside text-gray-700 mt-3 text-sm">
+                                    <li>Participated in a national web development hackathon with a team of 4 members.</li>
+                                    <li>Successfully completed Round 1, demonstrating strong foundational skills in web technologies.</li>
+                                    <li>Gained valuable experience in rapid prototyping, teamwork, and problem-solving under pressure.</li>
+                                </ul>
+                                <a href="https://drive.google.com/file/d/11hClnWo9Lh6HGKaumMA0VkdpoFqgWMH_/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+                                   class="inline-block mt-4 bg-gray-200 text-indigo-700 py-2 px-4 rounded-full text-sm font-semibold hover:bg-gray-300 transition-colors animated-link">
+                                    View Certificate
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -382,31 +507,31 @@
         </section>
 
         <!-- Resume Download Section -->
-        <section id="resume" class="py-16 md:py-24 bg-white rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8 section-hidden">
+        <section id="resume" class="py-16 md:py-24 bg-white rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold text-indigo-700 mb-8">Download My Resume</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-8 section-heading-animated">Download My Resume</h2>
                 <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
                     Access my full professional resume to learn more about my skills, experience, and academic background.
                 </p>
-                <a href="https://example.com/your-resume.pdf" download="YourName_Resume.pdf"
-                   class="inline-block bg-indigo-600 text-white py-3 px-8 rounded-full text-lg font-semibold shadow-md hover:bg-indigo-700 transition-colors transform hover:scale-105">
+                <a href="https://drive.google.com/uc?export=download&id=1UgkHoJUAbuhSjEQCOcqLaP8h25k-n_LM" download="Samrat_Karna_Resume.pdf"
+                   class="inline-flex items-center justify-center bg-indigo-600 text-white py-3 px-8 rounded-full text-lg font-semibold shadow-md hover:bg-indigo-700 transition-colors transform hover:scale-105 animated-button">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
                     Download Resume
                 </a>
-                <p class="text-sm text-gray-500 mt-4">
-                    (Note: This is a placeholder link. Please replace it with your actual resume URL.)
-                </p>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-16 md:py-24 bg-white rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8 section-hidden">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-12">Get In Touch</h2>
+        <section id="contact" class="py-16 md:py-24 bg-white rounded-3xl shadow-lg my-8 mx-4 sm:mx-6 lg:mx-8">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-indigo-700 mb-12 section-heading-animated">Get In Touch</h2>
                 <div class="max-w-2xl mx-auto bg-gray-50 p-8 rounded-xl shadow-md">
                     <p class="text-center text-lg text-gray-700 mb-8">
                         Have a question or want to collaborate? Feel free to reach out!
                     </p>
-                    <form id="contact-form" class="space-y-6">
+                    <form id="contact-form" action="https://formspree.io/f/xpwlqvyr" method="POST" class="space-y-6">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
                             <input type="text" id="name" name="name" required
@@ -423,7 +548,7 @@
                                 class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm outline-none"></textarea>
                         </div>
                         <button type="submit"
-                            class="w-full bg-indigo-600 text-white py-3 px-6 rounded-md text-lg font-semibold hover:bg-indigo-700 transition-colors shadow-md transform hover:scale-105">
+                            class="w-full bg-indigo-600 text-white py-3 px-6 rounded-md text-lg font-semibold hover:bg-indigo-700 transition-colors shadow-md transform hover:scale-105 animated-button">
                             Send Message
                         </button>
                     </form>
@@ -432,18 +557,21 @@
                 <div class="mt-12 text-center text-gray-700">
                     <p class="mb-2">You can also find me on:</p>
                     <div class="flex justify-center space-x-6 text-2xl">
-                        <!-- Replace # with your actual profile links -->
-                        <a href="#" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition-colors">
-                            <!-- LinkedIn Icon (example, use actual SVG or Font Awesome if available) -->
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <!-- LinkedIn Icon -->
+                        <a href="https://www.linkedin.com/in/samrat-karna-b99033279/" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition-colors social-icon-link">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.325-.028-3.044-1.852-3.044-1.853 0-2.136 1.445-2.136 2.951v5.662H9.57V9.092h3.416v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.27 2.373 4.27 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.064-2.065 2.062 2.062 0 012.064-2.063 2.064 2.064 0 010 4.128zm-1.782 13.019H7.12v-11.6h-3.565v11.6zM22.227 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.456C23.208 24 24 23.227 24 22.271V1.729C24 .774 23.208 0 22.227 0z"/></svg>
                         </a>
-                        <a href="#" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition-colors">
-                            <!-- GitHub Icon -->
+                        <!-- GitHub Icon -->
+                        <a href="https://github.com/K-Samrat" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition-colors social-icon-link">
                             <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.47.087.676-.207.676-.464 0-.229-.008-.849-.013-1.67-.959.175-1.166-.464-1.166-.464-.784-1.996-1.91-2.522-1.91-2.522-1.562-1.072.119-1.05.119-1.05 1.725.122 2.632 1.777 2.632 1.777 1.53 2.625 4.01 1.868 4.973 1.424.155-1.108.598-1.868 1.096-2.298-3.8-.43-7.772-1.902-7.772-8.485 0-1.876.671-3.414 1.77-4.615-.177-.432-.767-2.185.178-4.54A10.01 10.01 0 0112 3.23c.85.004 1.68.11 2.477.314.945 2.355.355 4.108.178 4.54 1.098 1.201 1.77 2.739 1.77 4.615 0 6.591-3.979 8.053-7.794 8.473.61.528 1.154 1.572 1.154 3.174 0 2.29-.02 4.13-.02 4.686 0 .259.208.554.685.458C21.13 20.197 24 16.442 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd"/></svg>
                         </a>
-                        <a href="#" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition-colors">
-                            <!-- Twitter Icon (example) -->
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.479 0-6.29 2.809-6.29 6.289 0 .495.056.974.164 1.433-5.23-1.638-9.872-4.647-13.016-10.995-.54.92-.853 1.983-.853 3.116 0 2.183 1.111 4.108 2.808 5.232-.26-.008-.509-.08-.732-.192v.079c0 3.046 2.164 5.588 5.035 6.164-.527.143-1.08.22-1.649.22-.403 0-.795-.039-1.177-.113.8 2.492 3.11 4.305 5.86 4.356-2.152 1.687-4.872 2.695-7.83 2.695-.509 0-.998-.03-1.48-.086 3.31 2.138 7.288 3.399 11.545 3.399 13.84 0 21.41-11.492 21.41-21.41 0-.325-.008-.65-.022-.973.978-.704 1.827-1.59 2.5-2.588z"/></svg>
+                        <!-- Twitter (X) Icon -->
+                        <a href="https://x.com/karnasamrat4" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition-colors social-icon-link">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.196h3.064l-6.66 7.712 7.22 13.092h-5.892l-4.322-7.852-6.16 7.852H.286l7.07-8.62L0 1.196h6.05L10.35 7.02 18.901 1.196zm-2.03 18.175h2.146L7.33 3.51H5.064l11.807 15.861z"/></svg>
+                        </a>
+                        <!-- Facebook Icon -->
+                        <a href="https://www.facebook.com/samrat.karna.54" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition-colors social-icon-link">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.35C0 23.407.593 24 1.325 24h11.493v-9.294H9.692v-3.622h3.136V7.05c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.917.001c-1.503 0-1.805.715-1.805 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.115c.732 0 1.325-.593 1.325-1.325V1.325C24 .593 23.407 0 22.675 0z"/></svg>
                         </a>
                     </div>
                 </div>
@@ -457,9 +585,9 @@
         <div class="container mx-auto text-center px-4 sm:px-6 lg:px-8">
             <p class="mb-4 text-sm">&copy; 2025 Your Name. All rights reserved.</p>
             <div class="flex justify-center space-x-6">
-                <a href="#home" class="text-gray-400 hover:text-white transition-colors text-sm">Home</a>
-                <a href="#about" class="text-gray-400 hover:text-white transition-colors text-sm">About</a>
-                <a href="#contact" class="text-gray-400 hover:text-white transition-colors text-sm">Contact</a>
+                <a href="#home" class="text-gray-400 hover:text-white transition-colors text-sm animated-link">Home</a>
+                <a href="#about" class="text-gray-400 hover:text-white transition-colors text-sm animated-link">About</a>
+                <a href="#contact" class="text-gray-400 hover:text-white transition-colors text-sm animated-link">Contact</a>
             </div>
         </div>
     </footer>
@@ -519,57 +647,64 @@
         const contactForm = document.getElementById('contact-form');
         const formMessage = document.getElementById('form-message');
 
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent actual form submission
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent default form submission to handle with fetch
 
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
             // Basic validation
-            if (name && email && message) {
-                formMessage.classList.remove('hidden', 'text-red-500');
-                formMessage.classList.add('text-green-500');
-                formMessage.textContent = 'Thank you for your message, ' + name + '! I will get back to you soon.';
-                contactForm.reset(); // Clear the form
-            } else {
+            if (!name || !email || !message) {
                 formMessage.classList.remove('hidden', 'text-green-500');
                 formMessage.classList.add('text-red-500');
                 formMessage.textContent = 'Please fill in all fields.';
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
             }
-            formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Scroll to message
-        });
 
-        // Scroll Reveal Animation Logic
-        const sectionsToAnimate = document.querySelectorAll(
-            '#about, #skills, #projects, #experience, #resume, #contact'
-        );
+            // Show a sending message
+            formMessage.classList.remove('hidden', 'text-red-500', 'text-green-500');
+            formMessage.classList.add('text-gray-600');
+            formMessage.textContent = 'Sending message...';
+            formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        const observerOptions = {
-            root: null, // Use the viewport as the root
-            rootMargin: '0px',
-            threshold: 0.1 // Trigger when 10% of the element is visible
-        };
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        message: message
+                    })
+                });
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Element is in view
-                    entry.target.classList.remove('section-hidden');
-                    entry.target.classList.add('section-visible');
-                    // Do NOT unobserve here, so it re-triggers on scroll up/down
+                if (response.ok) {
+                    formMessage.classList.remove('hidden', 'text-red-500', 'text-gray-600');
+                    formMessage.classList.add('text-green-500');
+                    formMessage.textContent = 'Thank you for your message! I will get back to you soon.';
+                    contactForm.reset(); // Clear the form
                 } else {
-                    // Element is out of view, reset it to hidden state
-                    entry.target.classList.remove('section-visible');
-                    entry.target.classList.add('section-hidden');
+                    // Handle errors from Formspree (e.g., invalid email, rate limiting)
+                    const data = await response.json();
+                    let errorMessage = 'Oops! There was an error sending your message.';
+                    if (data.errors && data.errors.length > 0) {
+                        errorMessage += ' ' + data.errors.map(err => err.message).join(' ');
+                    }
+                    formMessage.classList.remove('hidden', 'text-green-500', 'text-gray-600');
+                    formMessage.classList.add('text-red-500');
+                    formMessage.textContent = errorMessage;
                 }
-            });
-        }, observerOptions);
-
-        // Initially hide all sections and observe them
-        sectionsToAnimate.forEach(section => {
-            section.classList.add('section-hidden');
-            observer.observe(section);
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                formMessage.classList.remove('hidden', 'text-green-500', 'text-gray-600');
+                formMessage.classList.add('text-red-500');
+                formMessage.textContent = 'Network error. Please try again later.';
+            }
         });
     </script>
 </body>
